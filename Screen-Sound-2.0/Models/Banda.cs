@@ -11,6 +11,7 @@ internal class Banda : IAvaliavel
     }
 
     public string Nome { get; }
+    public string? Resumo { get; set; }
     public double Media
     {
         get
