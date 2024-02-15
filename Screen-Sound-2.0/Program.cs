@@ -1,176 +1,171 @@
-﻿// Screen Sound
-//List<string> bandsList = new() { "AC/DC", "Nirvana", "Gun's in Roses" };
+﻿Dictionary<string, List<int>> bandasRegistradas = new Dictionary<string, List<int>>();
+bandasRegistradas.Add("Linkin Park", new List<int> { 10, 8, 6 });
+bandasRegistradas.Add("The Beatles", new List<int>());
 
-Dictionary<string, List<int>> bandsDictionary = new()
-{
-    { "leo", new List<int> { 10, 5, 8 } }
-};
-
-void ShowMessage()
+void ExibirLogo()
 {
     Console.WriteLine(@"
-        
+
 ░██████╗░█████╗░██████╗░███████╗███████╗███╗░░██╗  ░██████╗░█████╗░██╗░░░██╗███╗░░██╗██████╗░
 ██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝████╗░██║  ██╔════╝██╔══██╗██║░░░██║████╗░██║██╔══██╗
 ╚█████╗░██║░░╚═╝██████╔╝█████╗░░█████╗░░██╔██╗██║  ╚█████╗░██║░░██║██║░░░██║██╔██╗██║██║░░██║
 ░╚═══██╗██║░░██╗██╔══██╗██╔══╝░░██╔══╝░░██║╚████║  ░╚═══██╗██║░░██║██║░░░██║██║╚████║██║░░██║
 ██████╔╝╚█████╔╝██║░░██║███████╗███████╗██║░╚███║  ██████╔╝╚█████╔╝╚██████╔╝██║░╚███║██████╔╝
 ╚═════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚══╝  ╚═════╝░░╚════╝░░╚═════╝░╚═╝░░╚══╝╚═════╝░
-    ");
-    Console.WriteLine("Welcome to the Screen Sound 2.0\n");
+");
+    Console.WriteLine("Boas vindas ao Screen Sound 2.0!");
 }
 
-void ShowOptions()
+void ExibirOpcoesDoMenu()
 {
-    ShowMessage();
-    Console.WriteLine("1 - Register a band");
-    Console.WriteLine("2 - Show all bands");
-    Console.WriteLine("3 - Rate a band");
-    Console.WriteLine("4 - Show bands media");
-    Console.WriteLine("5 - Exit Program");
+    ExibirLogo();
+    Console.WriteLine("\nDigite 1 para registrar uma banda");
+    Console.WriteLine("Digite 2 para registrar o álbum de uma banda");
+    Console.WriteLine("Digite 3 para mostrar todas as bandas");
+    Console.WriteLine("Digite 4 para avaliar uma banda");
+    Console.WriteLine("Digite 5 para exibir os detalhes de uma banda");
+    Console.WriteLine("Digite -1 para sair");
 
-    Console.Write("\nType your option: ");
-    string userOption = Console.ReadLine()!;
+    Console.Write("\nDigite a sua opção: ");
+    string opcaoEscolhida = Console.ReadLine()!;
+    int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
 
-    int userOptionInt = int.Parse(userOption);
-
-    switch (userOptionInt)
+    switch (opcaoEscolhidaNumerica)
     {
         case 1:
-            RegisterBand();
+            RegistrarBanda();
             break;
-
         case 2:
-            ShowAllBands();
+            RegistrarAlbum();
             break;
-
         case 3:
-            RateBand();
+            MostrarBandasRegistradas();
             break;
-
         case 4:
-            ShowBandMedia();
+            AvaliarUmaBanda();
             break;
-
         case 5:
-            Console.WriteLine("See you later!");
+            ExibirDetalhes();
             break;
-
+        case -1:
+            Console.WriteLine("Tchau tchau :)");
+            break;
         default:
-            Console.WriteLine("The option " + userOptionInt + " there isn't in Options List");
-            Console.WriteLine("Type again!");
+            Console.WriteLine("Opção inválida");
             break;
-
     }
 }
 
-void RegisterBand()
+void RegistrarAlbum()
 {
     Console.Clear();
-    Title("Band's Register");
-    Console.Write("Type the band's name do you want register: ");
-    string bandName = Console.ReadLine()!;
-    bandsDictionary.Add(bandName, new List<int>());
-    Thread.Sleep(2000);
-    Console.WriteLine($"The band {bandName} was succesfully registered");
-    Thread.Sleep(2000);
+    ExibirTituloDaOpcao("Registro de álbuns");
+    Console.Write("Digite a banda cujo álbum deseja registrar: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    Console.Write("Agora digite o título do álbum: ");
+    string tituloAlbum = Console.ReadLine()!;
+    /**
+     * ESPAÇO RESERVADO PARA COMPLETAR A FUNÇÃO
+     */
+    Console.WriteLine($"O álbum {tituloAlbum} de {nomeDaBanda} foi registrado com sucesso!");
+    Thread.Sleep(4000);
     Console.Clear();
-    ShowOptions();
+    ExibirOpcoesDoMenu();
 }
 
-void ShowAllBands()
+void RegistrarBanda()
 {
     Console.Clear();
-    Title("Show All Bands");
-    if (bandsDictionary.Count <= 0)
+    ExibirTituloDaOpcao("Registro das bandas");
+    Console.Write("Digite o nome da banda que deseja registrar: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    bandasRegistradas.Add(nomeDaBanda, new List<int>());
+    Console.WriteLine($"A banda {nomeDaBanda} foi registrada com sucesso!");
+    Thread.Sleep(4000);
+    Console.Clear();
+    ExibirOpcoesDoMenu();
+}
+
+void MostrarBandasRegistradas()
+{
+    Console.Clear();
+    ExibirTituloDaOpcao("Exibindo todas as bandas registradas na nossa aplicação");
+
+    foreach (string banda in bandasRegistradas.Keys)
     {
-        Console.WriteLine("Not have any Bands Registered!");
-        Console.WriteLine("Returning to menu in 3 secconds");
-        Thread.Sleep(3000);
+        Console.WriteLine($"Banda: {banda}");
+    }
+
+    Console.WriteLine("\nDigite uma tecla para voltar ao menu principal");
+    Console.ReadKey();
+    Console.Clear();
+    ExibirOpcoesDoMenu();
+
+}
+
+void ExibirTituloDaOpcao(string titulo)
+{
+    int quantidadeDeLetras = titulo.Length;
+    string asteriscos = string.Empty.PadLeft(quantidadeDeLetras, '*');
+    Console.WriteLine(asteriscos);
+    Console.WriteLine(titulo);
+    Console.WriteLine(asteriscos + "\n");
+}
+
+void AvaliarUmaBanda()
+{
+    Console.Clear();
+    ExibirTituloDaOpcao("Avaliar banda");
+    Console.Write("Digite o nome da banda que deseja avaliar: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    if (bandasRegistradas.ContainsKey(nomeDaBanda))
+    {
+        Console.Write($"Qual a nota que a banda {nomeDaBanda} merece: ");
+        int nota = int.Parse(Console.ReadLine()!);
+        bandasRegistradas[nomeDaBanda].Add(nota);
+        Console.WriteLine($"\nA nota {nota} foi registrada com sucesso para a banda {nomeDaBanda}");
+        Thread.Sleep(2000);
         Console.Clear();
-        ShowOptions();
+        ExibirOpcoesDoMenu();
     }
     else
     {
-        //for (int i = 0; i < bandsList.Count; i++)
-        //{
-        //    Console.WriteLine($"Band's Name: {bandsList[i]}");
-        //}
-        foreach (string bandName in bandsDictionary.Keys)
-        {
-            Console.WriteLine($"Band's Name: {bandName}");
-        }
-        Console.WriteLine("\nType any key to return to menu");
+        Console.WriteLine($"\nA banda {nomeDaBanda} não foi encontrada!");
+        Console.WriteLine("Digite uma tecla para voltar ao menu principal");
         Console.ReadKey();
         Console.Clear();
-        ShowOptions();
+        ExibirOpcoesDoMenu();
     }
+
 }
 
-void Title(string title)
-{
-    int qntTitle = title.Length;
-    string symbols = string.Empty.PadLeft(qntTitle, '*');
-
-    Console.WriteLine(symbols);
-    Console.WriteLine(title);
-    Console.WriteLine(symbols + "\n");
-}
-
-void RateBand()
+void ExibirDetalhes()
 {
     Console.Clear();
-    Title("Rate a Band");
-
-    Console.Write("Type a band's name to rate: ");
-    string bandName = Console.ReadLine()!;
-
-    if (bandsDictionary.ContainsKey(bandName))
+    ExibirTituloDaOpcao("Exibir detalhes da banda");
+    Console.Write("Digite o nome da banda que deseja conhecer melhor: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    if (bandasRegistradas.ContainsKey(nomeDaBanda))
     {
-        Console.Write($"Type a number to rate {bandName}: ");
-        int bandRateUser = int.Parse(Console.ReadLine()!);
-        bandsDictionary[bandName].Add(bandRateUser);
-        Console.WriteLine($"You typed {bandRateUser} to {bandName}\n");
-        Console.WriteLine("Returning to menu in 3 secconds");
-        Thread.Sleep(3000);
-        Console.Clear();
-        ShowOptions();
-    }
-    else
-    {
-        Console.WriteLine($"The band {bandName} wasn't register");
-        Console.WriteLine("Returning to menu in 3 secconds");
-        Thread.Sleep(3000);
-        Console.Clear();
-        ShowOptions();
-    }
-}
-
-void ShowBandMedia()
-{
-    Console.Clear();
-    Title("Show Band's Media");
-
-    Console.Write("Type the band's name to search in database: ");
-    string bandName = Console.ReadLine()!;
-
-    if (bandsDictionary.ContainsKey(bandName))
-    {
-        List<int> bandRate = bandsDictionary[bandName];
-        Console.Write($"{bandName} rate's media: {bandRate.Average().ToString("F2")}\n");
-        Console.WriteLine("Type any key to return to menu");
+        List<int> notasDaBanda = bandasRegistradas[nomeDaBanda];
+        Console.WriteLine($"\nA média da banda {nomeDaBanda} é {notasDaBanda.Average()}.");
+        /**
+        * ESPAÇO RESERVADO PARA COMPLETAR A FUNÇÃO
+        */
+        Console.WriteLine("Digite uma tecla para votar ao menu principal");
         Console.ReadKey();
         Console.Clear();
-        ShowOptions();
+        ExibirOpcoesDoMenu();
+
     }
     else
     {
-        Console.WriteLine($"The band {bandName} wasn't register");
-        Console.WriteLine("Returning to menu in 3 secconds");
-        Thread.Sleep(3000);
+        Console.WriteLine($"\nA banda {nomeDaBanda} não foi encontrada!");
+        Console.WriteLine("Digite uma tecla para voltar ao menu principal");
+        Console.ReadKey();
         Console.Clear();
-        ShowOptions();
+        ExibirOpcoesDoMenu();
     }
 }
 
-ShowOptions();
+ExibirOpcoesDoMenu();
