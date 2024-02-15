@@ -8,4 +8,10 @@ internal class Avaliacao
     {
         this.Nota = nota;
     }
+
+    public static Avaliacao Parse(string texto)
+    {
+        int nota = int.Parse(texto);
+        return new Avaliacao(nota);
+    }
 }
